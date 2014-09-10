@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -44,22 +46,17 @@ public class NetworkAdmin {
         out.write(machineRequest);
         
         // SOCKET: Recepción
-        int buff = socket.getReceiveBufferSize();
-        byte[] machineAnswer = new byte[buff];
-        String humanAnswer = "";
+        BufferedReader inBuff = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
 
-        int cumulativeRead = 0;
-        int instanceRead = 0;
-        while (instanceRead != -1 &&
-               instanceRead + 1 != cumulativeRead) {
-            instanceRead = in.read(machineAnswer, cumulativeRead,
-                                   buff - 1 - cumulativeRead);                  // El problema de la demora radica en el tamaño del buffer, al menos eso creo (aunque ahora lo retesteo y me anda rápido... fíjense qué tal les anda a ustedes).
-            cumulativeRead += 1 + instanceRead;
+        while ((inputLine = inBuff.readLine()) != null) {
+                response.append(inputLine);
         }
+        inBuff.close();
         
         // RESPUESTA: Interpretación
-        humanAnswer = new String(machineAnswer);                                // Podría no haber problemas con los chunks, a no ser que justo parta una tira que nos interese al medio (como un href o un mail). Hay que ver cómo solucionarlo.
-        System.out.println("DATA RECEIVED:\n\n" + humanAnswer);
+        System.out.println("DATA RECEIVED:\n\n" + response);
 
         // SOCKET: Cerrar
         socket.close();
