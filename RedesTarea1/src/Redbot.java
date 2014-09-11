@@ -1,22 +1,23 @@
 public class Redbot {
     public static void main(String[] args) {
-        // INICIALIZACIÓN DE BANDERAS
+        // Inicialización de banderas
         boolean debug = false;
         boolean infiniteDepth = true;
         int depth = 0;
         boolean persistent = false;
         boolean pozos = false;
-        boolean reader = false;
+        String pozosFile = "";
         boolean multilang = false;
+        String multilangFile = "";
         int threads = 1;
         boolean proxy = false;
-        String pozosFile = "";
-        String multilangFile = "";
         String proxyURL = "";
+        boolean reader = false;
         String semilla = "";
-        // PROCESAMIENTO DE ARGUMENTOS
-        if (args.length > 0) {
-            int i = 0;
+        
+        // Procesamiento de argumentos                                          // Se asume que todos los switchs están bien escritos:
+        if (args.length > 0) {                                                  // Si se ingresa un switch que requiere un argumento,
+            int i = 0;                                                          // éste es especificado.
             while (i < args.length - 1) {
                 switch (args[i].toUpperCase()) {
                     case "-D":
@@ -25,13 +26,9 @@ public class Redbot {
                         break;
                     case "-DEPTH":
                         i++;
-                        if (i < args.length - 1) {
-                            try {
-                                depth = Integer.parseInt(args[i]);
-                                infiniteDepth = false;
-                                i++;
-                            } catch (NumberFormatException exc) { }
-                        }
+                        depth = Integer.parseInt(args[i]);
+                        infiniteDepth = false;
+                        i++;
                         break;
                     case "-PERSISTENT":
                         persistent = true;
@@ -43,10 +40,6 @@ public class Redbot {
                         pozosFile = args[i];
                         i++;
                         break;
-                    case "-READER":
-                        reader = true;
-                        i++;
-                        break;
                     case "-MULTILANG":
                         multilang = true;
                         i++;
@@ -55,12 +48,8 @@ public class Redbot {
                         break;
                     case "-P":
                         i++;
-                        if (i < args.length - 1) {
-                            try {
-                                threads = Integer.parseInt(args[i]);
-                                i++;
-                            } catch (NumberFormatException exc) { }
-                        }
+                        threads = Integer.parseInt(args[i]);
+                        i++;
                         break;
                     case "-PRX":
                         proxy = true;
@@ -68,11 +57,16 @@ public class Redbot {
                         proxyURL = args[i];
                         i++;
                         break;
+                    case "-READER":
+                        reader = true;
+                        i++;
+                        break;
                 }
             }
             semilla = args[i];
         }
-        // ECHO DE CONFIGURACIÓN:
+        
+        // Echo de la configuración (ejemplo de uso de banderas)
         System.out.print("CONFIGURACIÓN:\n");
         if (debug) {
             System.out.print("-d\n");
@@ -88,15 +82,15 @@ public class Redbot {
         if (pozos) {
             System.out.print("-pozos " + pozosFile + "\n");
         }
-        if (reader) {
-            System.out.print("-reader\n");
-        }
         if (multilang) {
             System.out.print("-multilang " + multilangFile + "\n");
         }
         System.out.print("-p " + threads + "\n");
         if (proxy) {
             System.out.print("-prx " + proxyURL + "\n");
+        }
+        if (reader) {
+            System.out.print("-reader\n");
         }
         System.out.print("\nSEMILLA:\n");
         System.out.print(semilla);
