@@ -84,7 +84,7 @@ public class RedBot
     {
         Reader reader = createReader();
 
-	System.out.println(reader.get("http://www.fing.edu.uy/"));
+	System.out.println(reader.get(Args.seed()));
     }
 
 }

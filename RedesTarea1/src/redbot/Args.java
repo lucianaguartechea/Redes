@@ -110,7 +110,7 @@ public class Args
         return persistent;
     }
 
-    public static int depth()
+    public static int maxDepth()
     {
         return depth >= -1 ? depth : -1;
     }

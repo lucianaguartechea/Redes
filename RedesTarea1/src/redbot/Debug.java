@@ -14,7 +14,6 @@ public class Debug
     /****************************** C O M M O N *******************************/
     /**************************************************************************/
 
-    static void print(){ print(""); }
     static void print(String txt)
     {
         if (Args.debug())
@@ -39,13 +38,13 @@ public class Debug
 
     static void print(String title, List<String> txts)
     {
-        println("___________");
+        println("----------------------");
         println(title.toUpperCase());
-        println("___________");
+        println("----------------------");
         for (String txt : txts)
             println(txt);
-        println();
         println("_________________");
+        println();
     }
 
     private static String bool2string(boolean b)
@@ -66,7 +65,7 @@ public class Debug
         args.add("Seed URL: "       + Args.seed());
         args.add("Proxy: "          + Args.proxy());
         args.add("HTTP 1.1: "       + bool2string(Args.persistent()));
-        args.add("MaxDepth: "       + Args.depth());
+        args.add("MaxDepth: "       + Args.maxDepth());
         args.add("MaxThreads: "     + Args.maxThreads());
         args.add("Sinks file: "     + Args.sinksFile());
         args.add("Multilang file: " + Args.multilangFile());
