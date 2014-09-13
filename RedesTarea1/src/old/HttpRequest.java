@@ -1,7 +1,7 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+package old;
+
+import java.io.*;
+import java.net.*;
 
 /*
     Dada la url el metodo sendGet retorna la respuesta del servidor

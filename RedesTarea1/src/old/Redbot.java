@@ -1,3 +1,5 @@
+package old;
+
 public class Redbot {
     public static void main(String[] args) {
         // Inicialización de banderas

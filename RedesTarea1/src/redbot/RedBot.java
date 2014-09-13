@@ -7,11 +7,12 @@ package redbot;
  */
 public class RedBot
 {
-    
-    private static String readerClass;
 
-
-    static void main (String[] args) throws ClassNotFoundException
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args)
     {
         /**
          * Parse, store and validate arguments.
@@ -43,38 +44,47 @@ public class RedBot
 
         /**
          * Validate and instantiate first Reader object
-         * On failure, abort execution.
+         * On failure abort execution, on success start the program.
          */
         try
         {
-            switch (Args.reader())
-            {
-                case "sockets": readerClass = "ReaderUsingSockets"; break;
-                case "httpreq": readerClass = "ReaderUsingMockUps"; break;
-                case "mockups": readerClass = "ReaderUsingHttpReq"; break;
-                default:
-                    throw new ClassNotFoundException();
-            }
-
-            // And... there we go
-            start((Reader)Class.forName(readerClass).newInstance());
-        }
-        catch (IllegalAccessException | InstantiationException e)
-        {
-            System.out.println("Failed to instantiate Reader class");
-            System.out.println(e.getMessage());
-            System.exit(1);
+            Reader testReader = createReader();
+            start();
         }
         catch (ClassNotFoundException cnf)
         {
             System.out.println("No matching Reader class for " + Args.reader());
             System.exit(1);
         }
+        catch (Exception e)
+        {
+            System.out.println("Unexpected exception thrown");
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
     }
 
-    private static void start(Reader reader)
+    private static Reader createReader() throws ClassNotFoundException
     {
-        // TODO : here's where it all starts!
+        switch (Args.reader())
+        {
+            case "sockets":
+                return new ReaderUsingSockets();
+            case "httpreq":
+                return new ReaderUsingMockUps();
+            case "mockups":
+                return new ReaderUsingHttpReq();
+
+            default:
+                throw new ClassNotFoundException();
+        }
+    }
+
+    private static void start() throws Exception // Most exceptions handled in main, not here
+    {
+        Reader reader = createReader();
+
+	System.out.println(reader.get("http://www.fing.edu.uy/"));
     }
 
 }
