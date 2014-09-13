@@ -43,7 +43,7 @@ public class Debug
         println(title.toUpperCase());
         println("___________");
         for (String txt : txts)
-            print(txt);
+            println(txt);
         println();
         println("_________________");
     }
@@ -64,12 +64,10 @@ public class Debug
         args.add("Reader: "         + Args.reader());
         args.add("Debug: "          + bool2string(Args.debug()));
         args.add("Seed URL: "       + Args.seed());
-        args.add("");
         args.add("Proxy: "          + Args.proxy());
         args.add("HTTP 1.1: "       + bool2string(Args.persistent()));
         args.add("MaxDepth: "       + Args.depth());
         args.add("MaxThreads: "     + Args.maxThreads());
-        args.add("");
         args.add("Sinks file: "     + Args.sinksFile());
         args.add("Multilang file: " + Args.multilangFile());
 

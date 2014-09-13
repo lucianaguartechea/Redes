@@ -10,11 +10,6 @@ import java.util.Map;
  */
 public class ReaderUsingSockets implements Reader
 {
-    
-    public ReaderUsingSockets()
-    {
-        
-    }
 
     @Override
     public String get(String url) throws Exception
