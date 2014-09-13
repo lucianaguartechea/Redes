@@ -60,6 +60,7 @@ public class RedBot
         {
             System.out.println("Unexpected exception thrown");
             System.out.println(e.getMessage());
+            Debug.println(e.getStackTrace().toString());
             System.exit(1);
         }
     }
@@ -71,9 +72,9 @@ public class RedBot
             case "sockets":
                 return new ReaderUsingSockets();
             case "httpreq":
-                return new ReaderUsingMockUps();
-            case "mockups":
                 return new ReaderUsingHttpReq();
+            case "mockups":
+                return new ReaderUsingMockUps();
 
             default:
                 throw new ClassNotFoundException();
